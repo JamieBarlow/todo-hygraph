@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,6 +12,20 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 const TodoForm = () => {
+  const [title, setTitle] = useState("");
+
+  const handleSubmit = async (e: React.SubmitEvent) => {
+    e.preventDefault();
+    await fetch("/api/todos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title, description: "", dueDate: null }),
+    });
+    setTitle("");
+  };
+
   return (
     <Card className="w-full">
       <CardHeader>
@@ -17,7 +33,7 @@ const TodoForm = () => {
         <CardDescription>Type below to add items</CardDescription>
       </CardHeader>
       <CardContent>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-6">
             <div className="grid gap-2">
               <Label htmlFor="todo">Todo</Label>
@@ -25,12 +41,12 @@ const TodoForm = () => {
                 <Input
                   id="todo"
                   type="text"
-                  placeholder="Enter item"
+                  placeholder="Enter title"
                   required
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
                 />
-                <Button type="submit" className="">
-                  Add Item
-                </Button>
+                <Button type="submit">Add Item</Button>
               </div>
             </div>
           </div>

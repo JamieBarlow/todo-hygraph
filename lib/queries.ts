@@ -11,3 +11,19 @@ export const getTodos = gql`
     }
   }
 `;
+
+export const CreateTodo = gql`
+  mutation createTodo($title: String!) {
+    createTodo(data: { title: $title, completed: false, description: "" }) {
+      id
+    }
+  }
+`;
+
+export const PublishTodo = gql`
+  mutation PublishTodo($id: ID!) {
+    publishTodo(where: { id: $id }) {
+      id
+    }
+  }
+`;
