@@ -29,3 +29,19 @@ export const PublishTodo = gql`
     }
   }
 `;
+
+export const UpdateTodo = gql`
+  mutation UpdateTodo(
+    $id: ID!
+    $title: String!
+    $description: String
+    $completed: Boolean
+  ) {
+    updateTodo(
+      where: { id: $id }
+      data: { title: $title, description: $description, completed: $completed }
+    ) {
+      id
+    }
+  }
+`;
