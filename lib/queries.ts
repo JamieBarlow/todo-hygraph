@@ -45,3 +45,11 @@ export const UpdateTodo = gql`
     }
   }
 `;
+
+export const DeleteTodo = gql`
+  mutation DeleteTodo($id: ID!) {
+    deleteTodo(where: { id: $id }) {
+      id
+    }
+  }
+`;

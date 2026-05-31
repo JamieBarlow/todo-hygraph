@@ -1,5 +1,5 @@
 import { hygraphClient } from "@/lib/hygraph";
-import { UpdateTodo, PublishTodo } from "@/lib/queries";
+import { UpdateTodo, PublishTodo, DeleteTodo } from "@/lib/queries";
 
 export async function PATCH(
   req: Request,
@@ -20,4 +20,14 @@ export async function PATCH(
   });
 
   return Response.json(data);
+}
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: Promise<{ id: string }> },
+) {
+  const { id } = await params;
+
+  await hygraphClient.request(DeleteTodo, { id });
+  return Response.json({ id });
 }

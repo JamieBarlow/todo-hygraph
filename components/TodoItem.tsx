@@ -21,6 +21,13 @@ export default function TodoItem(todo: Todo) {
   const [title, setTitle] = useState(todo.title);
   const [description, setDescription] = useState(todo.description);
 
+  const handleDelete = async () => {
+    const response = await fetch(`/api/todos/${todo.id}`, {
+      method: "DELETE",
+    });
+    await response.json();
+  };
+
   const updateFormProps = {
     openEdit,
     setOpenEdit,
@@ -45,6 +52,9 @@ export default function TodoItem(todo: Todo) {
       <ItemFooter>
         <Button variant="secondary" onClick={() => setOpenEdit(true)}>
           Edit
+        </Button>
+        <Button variant="destructive" onClick={handleDelete}>
+          Delete
         </Button>
       </ItemFooter>
 
