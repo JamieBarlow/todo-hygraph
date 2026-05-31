@@ -3,6 +3,8 @@ import { request } from "graphql-request";
 import { getTodos } from "@/lib/queries";
 import { GetTodosResponse } from "@/lib/types";
 import { getEnv } from "@/lib/utils";
+import TodoItem from "./TodoItem";
+import { ItemGroup } from "./ui/item";
 
 const endpoint = getEnv("HYGRAPH_ENDPOINT");
 
@@ -12,14 +14,14 @@ export default async function TodoDisplay() {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Todos list</CardTitle>
+        <CardTitle>Todo list</CardTitle>
       </CardHeader>
       <CardContent>
-        <ul>
+        <ItemGroup className="max-w-sm">
           {todos.map((todo) => (
-            <li key={todo.id}>{todo.title}</li>
+            <TodoItem {...todo} key={todo.id} />
           ))}
-        </ul>
+        </ItemGroup>
       </CardContent>
     </Card>
   );

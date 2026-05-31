@@ -9,7 +9,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const ToDoForm = () => {
+const TodoForm = () => {
   return (
     <Card className="w-full">
       <CardHeader>
@@ -40,4 +40,4 @@ const ToDoForm = () => {
   );
 };
 
-export default ToDoForm;
+export default TodoForm;
