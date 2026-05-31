@@ -13,8 +13,10 @@ export const getTodos = gql`
 `;
 
 export const CreateTodo = gql`
-  mutation createTodo($title: String!) {
-    createTodo(data: { title: $title, completed: false, description: "" }) {
+  mutation createTodo($title: String!, $description: String) {
+    createTodo(
+      data: { title: $title, completed: false, description: $description }
+    ) {
       id
     }
   }

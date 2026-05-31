@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 
 const TodoForm = () => {
   const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
@@ -21,7 +22,7 @@ const TodoForm = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ title, description: "", dueDate: null }),
+      body: JSON.stringify({ title, description, dueDate: null }),
     });
     setTitle("");
   };
@@ -29,27 +30,33 @@ const TodoForm = () => {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Create Todo items</CardTitle>
+        <CardTitle>Create Todo item</CardTitle>
         <CardDescription>Type below to add items</CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit}>
-          <div className="flex flex-col gap-6">
-            <div className="grid gap-2">
-              <Label htmlFor="todo">Todo</Label>
-              <div className="flex gap-2">
-                <Input
-                  id="todo"
-                  type="text"
-                  placeholder="Enter title"
-                  required
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                />
-                <Button type="submit">Add Item</Button>
-              </div>
-            </div>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-2">
+            <Label htmlFor="title">Title</Label>
+            <Input
+              id="title"
+              placeholder="Enter title"
+              required
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
           </div>
+          <div className="space-y-2">
+            <Label htmlFor="description">Description</Label>
+            <Input
+              id="description"
+              placeholder="Enter description (optional)"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
+          <Button type="submit" className="w-full sm:w-auto">
+            Add Item
+          </Button>
         </form>
       </CardContent>
     </Card>
