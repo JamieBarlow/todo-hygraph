@@ -53,3 +53,13 @@ export const DeleteTodo = gql`
     }
   }
 `;
+
+export const GetUserByEmail = gql`
+  query GetUserByEmail($email: String!) {
+    userAuth(where: { email: $email }) {
+      id
+      email
+      password
+    }
+  }
+`;
