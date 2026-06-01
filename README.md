@@ -3,7 +3,7 @@
   <strong>By Jamie Barlow</strong>
 </div>
 
-🚀 [Live Demo](https://todo-hygraph.vercel.app)
+🚀 [Live Demo](https://hygraph-todo-app.vercel.app)
 
 ## Purpose / Background :bulb:
 
