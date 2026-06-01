@@ -63,3 +63,19 @@ export const GetUserByEmail = gql`
     }
   }
 `;
+
+export const CreateUserAuth = gql`
+  mutation CreateUserAuth($email: String!, $password: String!) {
+    createUserAuth(data: { email: $email, password: $password }) {
+      id
+    }
+  }
+`;
+
+export const PublishUserAuth = gql`
+  mutation PublishUserAuth($id: ID!) {
+    publishUserAuth(where: { id: $id }) {
+      id
+    }
+  }
+`;
