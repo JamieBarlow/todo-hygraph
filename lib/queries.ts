@@ -47,10 +47,16 @@ export const UpdateTodo = gql`
     $title: String!
     $description: String
     $completed: Boolean
+    $dueDate: Date
   ) {
     updateTodo(
       where: { id: $id }
-      data: { title: $title, description: $description, completed: $completed }
+      data: {
+        title: $title
+        description: $description
+        dueDate: $dueDate
+        completed: $completed
+      }
     ) {
       id
     }

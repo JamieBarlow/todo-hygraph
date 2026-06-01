@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -11,6 +14,8 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Todo } from "@/lib/types";
 import type { CheckedState } from "@radix-ui/react-checkbox";
+import DatePicker from "./DatePicker";
+import { format } from "date-fns";
 
 interface UpdateFormProps {
   openEdit: boolean;
@@ -33,6 +38,10 @@ export default function UpdateForm({
   todo,
   checked,
 }: UpdateFormProps) {
+  const [dueDate, setDueDate] = useState<Date | undefined>(
+    todo.dueDate ? new Date(todo.dueDate) : undefined,
+  );
+
   const handleUpdate = async (e: React.SubmitEvent) => {
     e.preventDefault();
     await fetch(`/api/todos/${todo.id}`, {
@@ -43,7 +52,7 @@ export default function UpdateForm({
       body: JSON.stringify({
         title,
         description,
-        dueDate: "",
+        dueDate: dueDate ? format(dueDate, "yyyy-MM-dd") : null,
         completed: checked,
       }),
     });
@@ -83,7 +92,9 @@ export default function UpdateForm({
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
-
+          <div className="space-y-2">
+            <DatePicker dueDate={dueDate} setDueDate={setDueDate} />
+          </div>
           <DialogFooter>
             <Button variant="secondary" onClick={() => handleCancel()}>
               Cancel

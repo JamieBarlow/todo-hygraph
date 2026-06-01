@@ -13,6 +13,7 @@ export async function PATCH(
     title: body.title,
     description: body.description,
     completed: body.completed,
+    dueDate: body.dueDate,
   });
 
   await hygraphClient.request(PublishTodo, {
