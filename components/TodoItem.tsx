@@ -28,6 +28,19 @@ export default function TodoItem(todo: Todo) {
     await response.json();
   };
 
+  const handleToggle = async (value: CheckedState) => {
+    setChecked(value);
+    await fetch(`/api/todos/${todo.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: todo.title,
+        description: todo.description,
+        completed: value,
+      }),
+    });
+  };
+
   const updateFormProps = {
     openEdit,
     setOpenEdit,
@@ -42,12 +55,24 @@ export default function TodoItem(todo: Todo) {
   return (
     <Item variant="outline">
       <ItemContent>
-        <ItemTitle>{todo.title}</ItemTitle>
-        <ItemDescription>{todo.description}</ItemDescription>
-        <ItemDescription>Due: {todo.dueDate}</ItemDescription>
+        <ItemTitle
+          className={checked ? "line-through text-muted-foreground" : ""}
+        >
+          {todo.title}
+        </ItemTitle>
+        <ItemDescription
+          className={checked ? "line-through text-muted-foreground" : ""}
+        >
+          {todo.description}
+        </ItemDescription>
+        <ItemDescription
+          className={checked ? "line-through text-muted-foreground" : ""}
+        >
+          Due: {todo.dueDate}
+        </ItemDescription>
       </ItemContent>
       <ItemActions>
-        <Checkbox checked={checked} onCheckedChange={setChecked} />
+        <Checkbox checked={checked} onCheckedChange={handleToggle} />
       </ItemActions>
       <ItemFooter>
         <Button variant="secondary" onClick={() => setOpenEdit(true)}>
