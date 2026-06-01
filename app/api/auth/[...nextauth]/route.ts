@@ -23,6 +23,15 @@ const handler = NextAuth({
         if (!userAuth) {
           return null;
         }
+        const passwordMatch = await bcrypt.compare(
+          credentials.password,
+          userAuth.password,
+        );
+
+        if (!passwordMatch) {
+          return null;
+        }
+
         return { id: userAuth.id, email: userAuth.email };
       },
     }),
