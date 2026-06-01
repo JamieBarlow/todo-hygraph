@@ -14,18 +14,22 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "./ui/button";
 import { Todo } from "@/lib/types";
 import UpdateForm from "./UpdateForm";
+import { useRouter } from "next/navigation";
 
 export default function TodoItem(todo: Todo) {
   const [checked, setChecked] = useState<CheckedState>(todo.completed);
   const [openEdit, setOpenEdit] = useState(false);
   const [title, setTitle] = useState(todo.title);
   const [description, setDescription] = useState(todo.description);
+  const router = useRouter();
 
   const handleDelete = async () => {
     const response = await fetch(`/api/todos/${todo.id}`, {
       method: "DELETE",
     });
-    await response.json();
+    if (response.ok) {
+      setTimeout(() => router.refresh(), 500);
+    }
   };
 
   const handleToggle = async (value: CheckedState) => {

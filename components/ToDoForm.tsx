@@ -12,10 +12,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { format } from "date-fns";
 import DatePicker from "./DatePicker";
+import { useRouter } from "next/navigation";
 
 import { useSession } from "next-auth/react";
 
 const TodoForm = () => {
+  const router = useRouter();
   const { data: session } = useSession();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -23,7 +25,7 @@ const TodoForm = () => {
 
   const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
-    await fetch("/api/todos", {
+    const response = await fetch("/api/todos", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +37,10 @@ const TodoForm = () => {
         userId: session?.user.id,
       }),
     });
-    setTitle("");
+    if (response.ok) {
+      setTitle("");
+      setTimeout(() => router.refresh(), 500);
+    }
   };
 
   return (

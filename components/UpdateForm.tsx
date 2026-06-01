@@ -16,6 +16,7 @@ import { Todo } from "@/lib/types";
 import type { CheckedState } from "@radix-ui/react-checkbox";
 import DatePicker from "./DatePicker";
 import { format } from "date-fns";
+import { useRouter } from "next/navigation";
 
 interface UpdateFormProps {
   openEdit: boolean;
@@ -38,13 +39,14 @@ export default function UpdateForm({
   todo,
   checked,
 }: UpdateFormProps) {
+  const router = useRouter();
   const [dueDate, setDueDate] = useState<Date | undefined>(
     todo.dueDate ? new Date(todo.dueDate) : undefined,
   );
 
   const handleUpdate = async (e: React.SubmitEvent) => {
     e.preventDefault();
-    await fetch(`/api/todos/${todo.id}`, {
+    const response = await fetch(`/api/todos/${todo.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -56,7 +58,10 @@ export default function UpdateForm({
         completed: checked,
       }),
     });
-    setOpenEdit(false);
+    if (response.ok) {
+      setOpenEdit(false);
+      setTimeout(() => router.refresh(), 500);
+    }
   };
 
   const handleCancel = () => {
