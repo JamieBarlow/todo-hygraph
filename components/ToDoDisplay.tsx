@@ -5,8 +5,18 @@ import TodoItem from "./TodoItem";
 import { ItemGroup } from "./ui/item";
 import { hygraphClient } from "@/lib/hygraph";
 
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+
 export default async function TodoDisplay() {
-  const { todos } = await hygraphClient.request<GetTodosResponse>(getTodos);
+  const session = await getServerSession(authOptions);
+  console.log("Session:", JSON.stringify(session, null, 2));
+  if (!session?.user?.id) {
+    return <p>Please log in to view your todos.</p>;
+  }
+  const { todos } = await hygraphClient.request<GetTodosResponse>(getTodos, {
+    userId: session?.user?.id,
+  });
   console.log(todos);
   return (
     <Card className="w-full">

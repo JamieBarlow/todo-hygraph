@@ -1,8 +1,8 @@
 import { gql } from "graphql-request";
 
 export const getTodos = gql`
-  {
-    todos {
+  query GetTodos($userId: ID!) {
+    todos(where: { userAuth: { id: $userId } }) {
       id
       title
       description
@@ -13,9 +13,14 @@ export const getTodos = gql`
 `;
 
 export const CreateTodo = gql`
-  mutation createTodo($title: String!, $description: String) {
+  mutation CreateTodo($title: String!, $description: String, $userId: ID!) {
     createTodo(
-      data: { title: $title, completed: false, description: $description }
+      data: {
+        title: $title
+        completed: false
+        description: $description
+        userAuth: { connect: { id: $userId } }
+      }
     ) {
       id
     }

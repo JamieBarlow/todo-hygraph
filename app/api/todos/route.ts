@@ -7,6 +7,7 @@ export async function POST(req: Request) {
   const data = await hygraphClient.request(CreateTodo, {
     title: body.title,
     description: body.description,
+    userId: body.userId,
   });
   await hygraphClient.request(PublishTodo, {
     id: data.createTodo.id,

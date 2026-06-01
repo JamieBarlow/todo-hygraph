@@ -11,7 +11,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+import { useSession } from "next-auth/react";
+
 const TodoForm = () => {
+  const { data: session } = useSession();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -22,7 +25,12 @@ const TodoForm = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ title, description, dueDate: null }),
+      body: JSON.stringify({
+        title,
+        description,
+        dueDate: null,
+        userId: session?.user.id,
+      }),
     });
     setTitle("");
   };
