@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
+  <h1>Todo App challenge with Hygraph CMS :closed_book:</h1>
+  <strong>By Jamie Barlow</strong>
+</div>
 
-## Getting Started
+## Purpose / Background :bulb:
 
-First, run the development server:
+This was developed for a technical challenge over the course of 3 days. The task specification was:
+- Create User Authentication and TODOs for each user
+- Make the view responsive
+- View all TODOs in a Calendar
+- User can View, Add, Update and Delete their TODOs (full CRUD functionality)
+- Use any Headless CMS (HyGraph recommended)
+- Technologies - > Next.js, And Nodejs version 16.x
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Project scope and features :heavy_check_mark:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Full CRUD functionality for todos (create, read, update, delete)
+- User authentication with NextAuth.js (email/password credentials)
+- Password hashing with bcrypt
+- User-scoped todos (each user only sees their own)
+- Calendar view with FullCalendar, displaying todos with due dates
+- Date picker for setting and updating due dates
+- Responsive UI built with ShadCN and Tailwind CSS
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Technologies :floppy_disk:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Headless CMS (Hygraph)
+- GraphQL
+- NextAuth.js
+- ShadCN (UI library)
+- FullCalendar (calendar view)
+- bcryptjs (password hashing)
+- date-fns (date formatting)
 
-## Learn More
+## Development Challenges and Lessons :wrench:
 
-To learn more about Next.js, take a look at the following resources:
+- This was my first experience with Hygraph and GraphQL for a headless CMS. Permissions and content publishing (requiring an explicit publish step after mutations) were the biggest obstacles.
+- Implementing real-time UI updates after mutations within the Next.js App Router server component model proved challenging within the time constraints.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Future enhancements :hourglass:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Due to the project deadline and avoiding scope creep, the focus has been on MVP functionality but I have noted a number of areas where improvements could be made or extra features could be added in future. These include:
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [ ] Revalidation with optimistic updates (possibly using [SWR](https://swr.vercel.app)). A known current limitation is the UI requires a manual refresh after mutations due to Next.js server component caching.
+- [ ] Form validation (using e.g. [React Hook Form](https://www.react-hook-form.com) and [Zod](https://zod.dev))
+- [ ] Auth with different providers (currently using email and password credentials only)
+- [ ] Update form/modal for items when clicked on calendar (currently display only)
+- [ ] Registration form validation and duplicate email handling
