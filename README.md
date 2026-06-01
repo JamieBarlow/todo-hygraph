@@ -3,6 +3,8 @@
   <strong>By Jamie Barlow</strong>
 </div>
 
+🚀 [Live Demo](https://hygraph-todo-app.vercel.app)
+
 ## Purpose / Background :bulb:
 
 This was developed for a technical challenge over the course of 3 days. The task specification was:
