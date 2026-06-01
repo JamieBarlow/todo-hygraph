@@ -8,6 +8,7 @@ export async function POST(req: Request) {
     title: body.title,
     description: body.description,
     userId: body.userId,
+    dueDate: body.dueDate,
   });
   await hygraphClient.request(PublishTodo, {
     id: data.createTodo.id,

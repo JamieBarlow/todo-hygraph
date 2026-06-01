@@ -10,6 +10,15 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 
 import { useSession } from "next-auth/react";
 
@@ -17,6 +26,7 @@ const TodoForm = () => {
   const { data: session } = useSession();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [dueDate, setDueDate] = useState<Date | undefined>(undefined);
 
   const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
@@ -28,7 +38,7 @@ const TodoForm = () => {
       body: JSON.stringify({
         title,
         description,
-        dueDate: null,
+        dueDate: dueDate ? format(dueDate, "yyyy-MM-dd") : null,
         userId: session?.user.id,
       }),
     });
@@ -62,6 +72,32 @@ const TodoForm = () => {
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
+
+          <div className="space-y-2">
+            <Label>Due Date</Label>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  className={cn(
+                    "w-full justify-start text-left font-normal",
+                    !dueDate && "text-muted-foreground",
+                  )}
+                >
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {dueDate ? format(dueDate, "PPP") : "Pick a date (optional)"}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0">
+                <Calendar
+                  mode="single"
+                  selected={dueDate}
+                  onSelect={setDueDate}
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
+
           <Button type="submit" className="w-full sm:w-auto">
             Add Item
           </Button>
