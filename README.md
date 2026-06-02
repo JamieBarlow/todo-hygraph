@@ -31,8 +31,8 @@ The brief specified Node.js 16.x. To avoid compatibility issues with the current
 
 ## Technologies :floppy_disk:
 
-- Node.js v22.16.0
-- Next.js 16
+- Node.js v26.2.0
+- Next.js v16.2.6
 - React
 - TypeScript
 - Tailwind CSS
