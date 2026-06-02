@@ -15,6 +15,10 @@ This was developed for a technical challenge over the course of 3 days. The task
 - Use any Headless CMS (HyGraph recommended)
 - Technologies - > Next.js, And Nodejs version 16.x
 
+### Note on Node.js Version
+
+The brief specified Node.js 16.x. To avoid compatibility issues with the current Next.js ecosystem and package dependencies, this project was developed using a modern LTS version of Node.js. The application does not rely on features specific to newer Node.js releases and could be adapted to Node.js 16 if required, subject to dependency compatibility.
+
 ## Project scope and features :heavy_check_mark:
 
 - Full CRUD functionality for todos (create, read, update, delete)
